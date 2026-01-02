@@ -1,0 +1,57 @@
+from time import sleep
+import sys
+
+nome = input('Olá, tudo bem?\nInforme seu nome: ').strip().title()
+
+SALDO_INICIAL = 2500
+saldo = SALDO_INICIAL
+
+print(f'\nOlá {nome}, seu saldo é de R${saldo}')
+
+while True:
+    try:
+        opcao = int(input(
+            '\nInforme uma opção:\n'
+            '[1] SACAR\n'
+            '[2] EXTRATO\n'
+            '[0] SAIR\n'
+        ))
+
+        if opcao == 1:
+            valor = float(input('Informe a quantia para o saque: '))
+            confirmacao = int(input('[1] CONFIRMAR SAQUE\n[2] CANCELAR SAQUE\n'))
+
+            if confirmacao == 1:
+                print('Aguarde um momento, estamos realizando seu saque...')
+                sleep(2)
+
+                if valor <= 0:
+                    print('Valor inválido.')
+
+                elif saldo >= valor:
+                    saldo -= valor
+                    print('Saque realizado com sucesso!')
+                    print(f'Saldo restante em conta: R${saldo}')
+
+                else:
+                    print('Saldo insuficiente!')
+                    print(f'Saldo em conta: R${saldo}')
+
+            else:
+                print('Saque cancelado.')
+
+        elif opcao == 2:
+            print('\nExibindo extrato...')
+            sleep(2)
+            print(f'Saldo atual: R${saldo}')
+            
+
+        elif opcao == 0:
+            print('Encerrando sistema...')
+            break
+
+        else:
+            print('Opção inválida.')
+
+    except ValueError:
+        print('Entrada inválida. Digite apenas números.')
